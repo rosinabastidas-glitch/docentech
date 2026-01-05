@@ -1,0 +1,134 @@
+# DocenTech - Plataforma de Recursos Educativos Digitales
+
+![DocenTech](https://img.shields.io/badge/Educación-Digital-blue)
+![NAP](https://img.shields.io/badge/Alineado-NAP-green)
+![React](https://img.shields.io/badge/React-18-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-blue)
+
+## 📖 Descripción
+
+DocenTech es una plataforma web interactiva diseñada para proporcionar recursos educativos digitales a docentes argentinos. Todos los recursos están alineados con los **Núcleos de Aprendizajes Prioritarios (NAP)** y están pensados para ser implementados en contextos reales de aula.
+
+## ✨ Características
+
+- **Catálogo de Recursos**: Biblioteca de materiales educativos organizados por área, nivel y dificultad
+- **Sistema de Búsqueda**: Búsqueda avanzada con filtros múltiples
+- **Contador de Visitas**: Seguimiento de visitas utilizando localStorage
+- **Alineación NAP**: Cada recurso especifica el NAP correspondiente
+- **Sección de Contacto**: Formulario para consultas sobre capacitaciones
+- **Diseño Responsive**: Adaptado para dispositivos móviles y escritorio
+
+## 🎯 Áreas Cubiertas
+
+- Lengua y Literatura
+- Matemática
+- Ciencias Naturales
+- Ciencias Sociales
+- Arte
+
+## 🛠️ Tecnologías Utilizadas
+
+- **React 18**: Framework principal
+- **Tailwind CSS**: Estilos y diseño responsive
+- **Lucide Icons**: Iconografía
+- **LocalStorage**: Almacenamiento de visitas
+
+## 🚀 Instalación y Uso
+
+### Opción 1: Abrir directamente en el navegador
+
+1. Clona este repositorio:
+```bash
+git clone https://github.com/tu-usuario/docentech.git
+```
+
+2. Abre el archivo `index.html` en tu navegador web favorito.
+
+### Opción 2: Usar un servidor local
+
+```bash
+# Con Python 3
+python -m http.server 8000
+
+# Con Node.js (http-server)
+npx http-server
+```
+
+Luego abre tu navegador en `http://localhost:8000`
+
+## 📁 Estructura del Proyecto
+
+```
+docentech/
+│
+├── index.html          # Archivo principal con toda la aplicación
+├── README.md           # Este archivo
+└── .gitignore         # Archivos a ignorar por Git
+```
+
+## 🎓 Niveles Educativos
+
+- Primaria
+- Secundaria
+
+## 📊 Tipos de Recursos
+
+- Tutoriales
+- Guías
+- Actividades Prácticas
+
+## 🎨 Niveles de Dificultad
+
+- Principiante (Verde)
+- Intermedio (Amarillo)
+- Avanzado (Rojo)
+
+## 💡 Uso
+
+1. **Página de Inicio**: Vista general con recursos destacados
+2. **Sección Recursos**: Búsqueda y filtrado avanzado de materiales
+3. **Cursos y Contacto**: Información sobre capacitaciones disponibles
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Si tenés ideas para nuevos recursos o mejoras:
+
+1. Fork el proyecto
+2. Crea una rama para tu característica (`git checkout -b feature/NuevoRecurso`)
+3. Commit tus cambios (`git commit -m 'Agregar nuevo recurso'`)
+4. Push a la rama (`git push origin feature/NuevoRecurso`)
+5. Abre un Pull Request
+
+## 📝 Agregar Nuevos Recursos
+
+Para agregar nuevos recursos educativos, edita el array `recursos` en el archivo `index.html`:
+
+```javascript
+{
+  id: 7,
+  titulo: "Nombre del Recurso",
+  area: "Área Curricular",
+  nivel: "Primaria/Secundaria",
+  dificultad: "Principiante/Intermedio/Avanzado",
+  tipo: "Tutorial/Guía/Actividad Práctica",
+  nap: "NAP específico",
+  descripcion: "Descripción del recurso"
+}
+```
+
+## 📧 Contacto
+
+Para consultas sobre capacitaciones o colaboraciones, podés usar el formulario en la sección "Cursos y Contacto" de la plataforma.
+
+## 👩‍💼 Sobre la Autora
+
+Rosina Magister en Enseñanza en Escenarios Digitales (UNCO), Argentina. Facilitadora de Educación Digital y ha capacitado a más de 200 docentes en tecnología.
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+
+
+---
+
+⭐ Si te resultó útil esta plataforma, no dudes en dejar una estrella en el repositorio!
