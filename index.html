@@ -15,6 +15,22 @@
     
     <!-- Babel para JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E91E8C',
+                        secondary: '#4ECDC4',
+                        accent: '#FFE66D',
+                        dark: '#2C3E50',
+                        light: '#F7F9FC'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <div id="root"></div>
@@ -31,6 +47,13 @@
           const [mostrarFiltros, setMostrarFiltros] = React.useState(false);
           const [busqueda, setBusqueda] = React.useState('');
           const [seccionActiva, setSeccionActiva] = React.useState('inicio');
+          const [formContacto, setFormContacto] = React.useState({
+            nombre: '',
+            email: '',
+            institucion: '',
+            nivel: '',
+            mensaje: ''
+          });
 
           React.useEffect(() => {
             const visitasGuardadas = parseInt(localStorage.getItem('visitas') || '1247');
@@ -47,7 +70,7 @@
               dificultad: "Principiante",
               tipo: "Tutorial",
               nap: "Producción de textos multimodales",
-              descripcion: "Guía paso a paso para crear infografías educativas"
+              descripcion: "Guía paso a paso para crear infografías educativas utilizando Canva, integrando texto, imágenes y diseño visual para comunicar ideas de manera efectiva."
             },
             {
               id: 2,
@@ -57,7 +80,7 @@
               dificultad: "Intermedio",
               tipo: "Actividad Práctica",
               nap: "Resolución de problemas y pensamiento computacional",
-              descripcion: "Actividades de geometría y cálculo con Scratch"
+              descripcion: "Actividades de geometría y cálculo con Scratch, desarrollando el pensamiento lógico-matemático a través de la programación visual."
             },
             {
               id: 3,
@@ -67,7 +90,7 @@
               dificultad: "Intermedio",
               tipo: "Guía",
               nap: "Experimentación científica",
-              descripcion: "Uso de simuladores PhET para experimentos de física"
+              descripcion: "Uso de simuladores PhET para experimentos de física, permitiendo la exploración de fenómenos científicos de manera segura y accesible."
             },
             {
               id: 4,
@@ -77,7 +100,7 @@
               dificultad: "Principiante",
               tipo: "Tutorial",
               nap: "Representación espacial y cartográfica",
-              descripcion: "Crear mapas colaborativos para geografía e historia"
+              descripcion: "Crear mapas colaborativos para geografía e historia, desarrollando la comprensión espacial y contextual de eventos históricos y geográficos."
             },
             {
               id: 5,
@@ -87,7 +110,7 @@
               dificultad: "Avanzado",
               tipo: "Actividad Práctica",
               nap: "Producción oral y comunicación",
-              descripcion: "Proyecto de radio escolar digital"
+              descripcion: "Proyecto de radio escolar digital, desarrollando habilidades de comunicación oral, investigación y trabajo colaborativo."
             },
             {
               id: 6,
@@ -97,7 +120,7 @@
               dificultad: "Avanzado",
               tipo: "Guía",
               nap: "Producción artística con nuevas tecnologías",
-              descripcion: "Crear experiencias AR con Metaverse"
+              descripcion: "Crear experiencias AR con Metaverse, explorando nuevas formas de expresión artística mediante tecnologías emergentes."
             }
           ];
 
@@ -118,137 +141,357 @@
 
           const getDificultadColor = (dificultad) => {
             switch(dificultad) {
-              case 'Principiante': return 'bg-green-100 text-green-800';
-              case 'Intermedio': return 'bg-yellow-100 text-yellow-800';
-              case 'Avanzado': return 'bg-red-100 text-red-800';
-              default: return 'bg-gray-100 text-gray-800';
+              case 'Principiante': return 'bg-green-100 text-green-700 border border-green-300';
+              case 'Intermedio': return 'bg-yellow-100 text-yellow-700 border border-yellow-300';
+              case 'Avanzado': return 'bg-orange-100 text-orange-700 border border-orange-300';
+              default: return 'bg-gray-100 text-gray-700';
             }
           };
 
+          const enviarConsulta = () => {
+            const subject = encodeURIComponent('Consulta sobre capacitaciones - DocenTech');
+            const body = encodeURIComponent(
+              `Nombre: ${formContacto.nombre}\n` +
+              `Email: ${formContacto.email}\n` +
+              `Institución: ${formContacto.institucion}\n` +
+              `Nivel educativo: ${formContacto.nivel}\n\n` +
+              `Mensaje:\n${formContacto.mensaje}`
+            );
+            window.location.href = `mailto:docentech21@gmail.com?subject=${subject}&body=${body}`;
+          };
+
           return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+            <div className="min-h-screen bg-light">
               {/* Header */}
-              <header className="bg-white shadow-md">
-                <div className="max-w-7xl mx-auto px-4 py-6">
+              <header className="bg-gradient-to-r from-primary to-secondary shadow-lg">
+                <div className="max-w-7xl mx-auto px-4 py-8">
                   <div className="flex items-center justify-between">
-                    <div>
-                      <h1 className="text-3xl font-bold text-indigo-900">DocenTech</h1>
-                      <p className="text-sm text-gray-600 mt-1">Recursos digitales alineados con NAP</p>
+                    <div className="text-white">
+                      <h1 className="text-4xl font-bold mb-2">DocenTech</h1>
+                      <p className="text-lg opacity-90">Tecnología educativa con propósito pedagógico</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-lg">
-                        <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-5 py-3 rounded-xl">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
-                        <span className="text-sm font-semibold text-indigo-900">{visitas.toLocaleString()} visitas</span>
+                        <span className="text-lg font-bold text-white">{visitas.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
                   
                   {/* Navegación */}
-                  <nav className="mt-6 flex gap-4">
+                  <nav className="mt-8 flex gap-4 flex-wrap">
                     <button
                       onClick={() => setSeccionActiva('inicio')}
-                      className={`px-4 py-2 rounded-lg font-medium transition ${
+                      className={`px-6 py-3 rounded-xl font-semibold transition-all ${
                         seccionActiva === 'inicio' 
-                          ? 'bg-indigo-600 text-white' 
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-white text-primary shadow-lg scale-105' 
+                          : 'bg-white/20 text-white hover:bg-white/30'
                       }`}
                     >
                       Inicio
                     </button>
                     <button
+                      onClick={() => setSeccionActiva('fundamentos')}
+                      className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                        seccionActiva === 'fundamentos' 
+                          ? 'bg-white text-primary shadow-lg scale-105' 
+                          : 'bg-white/20 text-white hover:bg-white/30'
+                      }`}
+                    >
+                      Marco Teórico
+                    </button>
+                    <button
                       onClick={() => setSeccionActiva('recursos')}
-                      className={`px-4 py-2 rounded-lg font-medium transition ${
+                      className={`px-6 py-3 rounded-xl font-semibold transition-all ${
                         seccionActiva === 'recursos' 
-                          ? 'bg-indigo-600 text-white' 
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-white text-primary shadow-lg scale-105' 
+                          : 'bg-white/20 text-white hover:bg-white/30'
                       }`}
                     >
                       Recursos
                     </button>
                     <button
                       onClick={() => setSeccionActiva('contacto')}
-                      className={`px-4 py-2 rounded-lg font-medium transition ${
+                      className={`px-6 py-3 rounded-xl font-semibold transition-all ${
                         seccionActiva === 'contacto' 
-                          ? 'bg-indigo-600 text-white' 
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-white text-primary shadow-lg scale-105' 
+                          : 'bg-white/20 text-white hover:bg-white/30'
                       }`}
                     >
-                      Cursos y Contacto
+                      Contacto
                     </button>
                   </nav>
                 </div>
               </header>
 
-              <main className="max-w-7xl mx-auto px-4 py-8">
+              <main className="max-w-7xl mx-auto px-4 py-12">
                 {/* Sección Inicio */}
                 {seccionActiva === 'inicio' && (
                   <div>
-                    {/* Hero Section */}
-                    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 mb-8 text-white">
-                      <h2 className="text-4xl font-bold mb-4">Recursos Digitales para tu Aula</h2>
-                      <p className="text-xl mb-6">Herramientas, guías y actividades prácticas alineadas con los NAP de Argentina</p>
+                    {/* Hero Section con Objetivos */}
+                    <div className="bg-gradient-to-br from-primary via-secondary to-accent rounded-3xl p-12 mb-12 text-white shadow-2xl">
+                      <h2 className="text-5xl font-bold mb-6">Bienvenidos a DocenTech</h2>
+                      <p className="text-2xl mb-8 leading-relaxed">
+                        Una plataforma pensada para acompañar a docentes en la integración significativa de tecnología en el aula
+                      </p>
+                      
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
+                        <h3 className="text-3xl font-bold mb-6">🎯 Nuestro Objetivo</h3>
+                        <p className="text-lg leading-relaxed mb-6">
+                          DocenTech nace de la necesidad de cerrar la brecha entre las herramientas digitales disponibles y su 
+                          aplicación pedagógica efectiva en contextos educativos reales. Nuestro propósito es democratizar el 
+                          acceso a recursos tecnológicos de calidad, alineados con los <strong>Núcleos de Aprendizajes Prioritarios (NAP)</strong> 
+                          del sistema educativo argentino.
+                        </p>
+                        <div className="grid md:grid-cols-3 gap-6">
+                          <div className="bg-white/10 rounded-xl p-6">
+                            <div className="text-4xl mb-3">📚</div>
+                            <h4 className="font-bold text-xl mb-2">Alineación Curricular</h4>
+                            <p className="text-sm">Todos los recursos respetan y potencian los NAP vigentes</p>
+                          </div>
+                          <div className="bg-white/10 rounded-xl p-6">
+                            <div className="text-4xl mb-3">🎓</div>
+                            <h4 className="font-bold text-xl mb-2">Enfoque Pedagógico</h4>
+                            <p className="text-sm">Basado en metodologías activas: ABP, STEAM y gamificación</p>
+                          </div>
+                          <div className="bg-white/10 rounded-xl p-6">
+                            <div className="text-4xl mb-3">🌍</div>
+                            <h4 className="font-bold text-xl mb-2">Contexto Real</h4>
+                            <p className="text-sm">Recursos probados en aulas de toda Argentina</p>
+                          </div>
+                        </div>
+                      </div>
+
                       <button
-                        onClick={() => setSeccionActiva('recursos')}
-                        className="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition"
+                        onClick={() => setSeccionActiva('fundamentos')}
+                        className="bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all hover:scale-105"
                       >
-                        Explorar Recursos
+                        Conocer el Marco Teórico →
                       </button>
                     </div>
 
-                    {/* Cards de categorías */}
-                    <div className="grid md:grid-cols-3 gap-6 mb-8">
-                      <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                          <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                          </svg>
+                    {/* Cards de categorías con nuevo diseño */}
+                    <div className="mb-12">
+                      <h3 className="text-3xl font-bold text-dark mb-8">¿Qué encontrarás en DocenTech?</h3>
+                      <div className="grid md:grid-cols-3 gap-8">
+                        <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all p-8 border-t-4 border-primary hover:scale-105">
+                          <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                          </div>
+                          <h3 className="text-2xl font-bold mb-4 text-dark">Guías Paso a Paso</h3>
+                          <p className="text-gray-600 leading-relaxed">Tutoriales detallados con capturas de pantalla y explicaciones claras para integrar tecnología en tus clases</p>
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Guías Paso a Paso</h3>
-                        <p className="text-gray-600">Tutoriales detallados para integrar tecnología en el aula</p>
-                      </div>
-                      <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                          <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
+                        <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all p-8 border-t-4 border-secondary hover:scale-105">
+                          <div className="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <h3 className="text-2xl font-bold mb-4 text-dark">Herramientas Digitales</h3>
+                          <p className="text-gray-600 leading-relaxed">Catálogo curado de aplicaciones y plataformas educativas gratuitas, evaluadas pedagógicamente</p>
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Herramientas Digitales</h3>
-                        <p className="text-gray-600">Catálogo de recursos tecnológicos educativos</p>
-                      </div>
-                      <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
-                          <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
+                        <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all p-8 border-t-4 border-accent hover:scale-105">
+                          <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                          </div>
+                          <h3 className="text-2xl font-bold mb-4 text-dark">Actividades Listas</h3>
+                          <p className="text-gray-600 leading-relaxed">Planificaciones completas descargables, adaptables a diferentes contextos y realidades áulicas</p>
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Actividades Prácticas</h3>
-                        <p className="text-gray-600">Planificaciones listas para implementar</p>
                       </div>
                     </div>
 
-                    {/* Recursos destacados */}
-                    <div className="bg-white rounded-xl shadow-lg p-6">
-                      <h3 className="text-2xl font-bold mb-4">Recursos Destacados</h3>
-                      <div className="grid md:grid-cols-2 gap-4">
+                    {/* Recursos destacados con nuevo diseño */}
+                    <div className="bg-white rounded-2xl shadow-xl p-10">
+                      <h3 className="text-3xl font-bold mb-8 text-dark">Recursos Destacados</h3>
+                      <div className="grid md:grid-cols-2 gap-6">
                         {recursos.slice(0, 4).map(recurso => (
-                          <div key={recurso.id} className="border border-gray-200 rounded-lg p-4 hover:border-indigo-300 transition">
-                            <div className="flex justify-between items-start mb-2">
-                              <h4 className="font-semibold text-lg">{recurso.titulo}</h4>
-                              <span className={`text-xs px-2 py-1 rounded ${getDificultadColor(recurso.dificultad)}`}>
+                          <div key={recurso.id} className="border-2 border-gray-200 rounded-xl p-6 hover:border-secondary hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-4">
+                              <h4 className="font-bold text-xl text-dark flex-1">{recurso.titulo}</h4>
+                              <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getDificultadColor(recurso.dificultad)}`}>
                                 {recurso.dificultad}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-600 mb-2">{recurso.descripcion}</p>
-                            <div className="flex flex-wrap gap-2 text-xs">
-                              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">{recurso.area}</span>
-                              <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded">{recurso.nivel}</span>
+                            <p className="text-gray-600 mb-4 leading-relaxed">{recurso.descripcion}</p>
+                            <div className="flex flex-wrap gap-2 text-sm">
+                              <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">{recurso.area}</span>
+                              <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">{recurso.nivel}</span>
                             </div>
                           </div>
                         ))}
                       </div>
+                      <div className="text-center mt-8">
+                        <button
+                          onClick={() => setSeccionActiva('recursos')}
+                          className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all hover:scale-105"
+                        >
+                          Ver Todos los Recursos
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Nueva Sección: Fundamentos Teóricos */}
+                {seccionActiva === 'fundamentos' && (
+                  <div className="space-y-8">
+                    <div className="bg-white rounded-2xl shadow-xl p-10">
+                      <h2 className="text-4xl font-bold mb-6 text-dark">Marco Teórico y Fundamentos Pedagógicos</h2>
+                      <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                        La integración de tecnología en educación no es simplemente usar dispositivos en el aula, 
+                        sino transformar las prácticas pedagógicas para potenciar los aprendizajes.
+                      </p>
+                    </div>
+
+                    {/* Los NAP */}
+                    <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-xl p-10 text-white">
+                      <h3 className="text-3xl font-bold mb-6">📋 Los Núcleos de Aprendizajes Prioritarios (NAP)</h3>
+                      <p className="text-lg mb-6 leading-relaxed">
+                        Los NAP constituyen el marco curricular común para todo el sistema educativo argentino, 
+                        estableciendo saberes fundamentales que todos los estudiantes deben adquirir en cada nivel educativo.
+                      </p>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
+                        <h4 className="text-xl font-bold mb-4">¿Por qué son importantes los NAP en tecnología educativa?</h4>
+                        <ul className="space-y-3 text-base">
+                          <li className="flex items-start gap-3">
+                            <span className="text-2xl">✓</span>
+                            <span><strong>Garantizan equidad:</strong> Aseguran que todos los estudiantes accedan a aprendizajes fundamentales, independientemente de su contexto</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <span className="text-2xl">✓</span>
+                            <span><strong>Dan coherencia:</strong> Articulan los diferentes niveles y modalidades del sistema educativo</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <span className="text-2xl">✓</span>
+                            <span><strong>Orientan la práctica:</strong> Guían la selección y organización de contenidos y actividades</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <p className="text-lg leading-relaxed">
+                        Cada recurso en DocenTech está cuidadosamente alineado con NAP específicos, garantizando que 
+                        la tecnología sea un medio para alcanzar objetivos pedagógicos concretos, no un fin en sí misma.
+                      </p>
+                    </div>
+
+                    {/* Modelo TPACK */}
+                    <div className="bg-white rounded-2xl shadow-xl p-10">
+                      <h3 className="text-3xl font-bold mb-6 text-dark">🎯 El Modelo TPACK</h3>
+                      <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                        El modelo TPACK (Technological Pedagogical Content Knowledge) propuesto por Mishra y Koehler 
+                        identifica tres tipos de conocimiento necesarios para una integración efectiva de tecnología:
+                      </p>
+                      <div className="grid md:grid-cols-3 gap-6 mb-8">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-2 border-blue-200">
+                          <h4 className="font-bold text-xl mb-3 text-blue-900">Conocimiento Disciplinar</h4>
+                          <p className="text-gray-700">Dominio de los contenidos específicos de cada área (matemática, lengua, ciencias, etc.)</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border-2 border-green-200">
+                          <h4 className="font-bold text-xl mb-3 text-green-900">Conocimiento Pedagógico</h4>
+                          <p className="text-gray-700">Estrategias de enseñanza, gestión del aula, evaluación y comprensión de cómo aprenden los estudiantes</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border-2 border-purple-200">
+                          <h4 className="font-bold text-xl mb-3 text-purple-900">Conocimiento Tecnológico</h4>
+                          <p className="text-gray-700">Comprensión y habilidad para utilizar diferentes herramientas y recursos digitales</p>
+                        </div>
+                      </div>
+                      <div className="bg-gradient-to-r from-primary to-secondary rounded-xl p-8 text-white">
+                        <h4 className="text-2xl font-bold mb-4">La intersección: TPACK</h4>
+                        <p className="text-lg leading-relaxed">
+                          La verdadera integración efectiva ocurre cuando estos tres conocimientos se combinan. 
+                          DocenTech te ayuda a desarrollar este conocimiento integrado proporcionando recursos que 
+                          consideran simultáneamente el contenido disciplinar, las mejores prácticas pedagógicas y 
+                          las posibilidades que ofrecen las tecnologías digitales.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Metodologías Activas */}
+                    <div className="bg-white rounded-2xl shadow-xl p-10">
+                      <h3 className="text-3xl font-bold mb-6 text-dark">🚀 Metodologías Activas con Tecnología</h3>
+                      <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                        Los recursos de DocenTech están diseñados bajo enfoques pedagógicos que promueven el 
+                        protagonismo estudiantil y la construcción activa del conocimiento:
+                      </p>
+                      
+                      <div className="space-y-6">
+                        <div className="border-l-4 border-secondary pl-6 py-4">
+                          <h4 className="text-2xl font-bold mb-3 text-dark">Aprendizaje Basado en Proyectos (ABP)</h4>
+                          <p className="text-gray-700 mb-3 leading-relaxed">
+                            Los estudiantes investigan y responden preguntas complejas o desafíos auténticos durante 
+                            un período extendido. La tecnología facilita la investigación, colaboración y presentación 
+                            de productos finales significativos.
+                          </p>
+                          <p className="text-sm text-gray-600 italic">
+                            Ejemplo: Proyecto de mapas interactivos donde estudiantes documentan la historia del barrio
+                          </p>
+                        </div>
+
+                        <div className="border-l-4 border-primary pl-6 py-4">
+                          <h4 className="text-2xl font-bold mb-3 text-dark">STEAM (Ciencia, Tecnología, Ingeniería, Arte, Matemática)</h4>
+                          <p className="text-gray-700 mb-3 leading-relaxed">
+                            Enfoque interdisciplinario que integra estas cinco áreas para resolver problemas del mundo 
+                            real. Las herramientas digitales permiten simular, diseñar, programar y crear de maneras 
+                            antes imposibles en el aula tradicional.
+                          </p>
+                          <p className="text-sm text-gray-600 italic">
+                            Ejemplo: Diseño de experimentos virtuales que combinan física y arte mediante simuladores
+                          </p>
+                        </div>
+
+                        <div className="border-l-4 border-accent pl-6 py-4">
+                          <h4 className="text-2xl font-bold mb-3 text-dark">Gamificación</h4>
+                          <p className="text-gray-700 mb-3 leading-relaxed">
+                            Incorporación de elementos de juego (puntos, niveles, desafíos, narrativas) en contextos 
+                            educativos para aumentar la motivación y el compromiso. La tecnología potencia estas 
+                            experiencias mediante sistemas de retroalimentación inmediata y seguimiento de progreso.
+                          </p>
+                          <p className="text-sm text-gray-600 italic">
+                            Ejemplo: Plataformas de programación que presentan desafíos progresivos tipo videojuego
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Principios de Diseño */}
+                    <div className="bg-gradient-to-br from-secondary to-primary rounded-2xl shadow-xl p-10 text-white">
+                      <h3 className="text-3xl font-bold mb-6">⚡ Principios de Diseño de Recursos Digitales</h3>
+                      <p className="text-lg mb-8 leading-relaxed">
+                        Los recursos de DocenTech se diseñan siguiendo estos principios fundamentales:
+                      </p>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                          <h4 className="font-bold text-xl mb-3">🎯 Intencionalidad Pedagógica</h4>
+                          <p>Cada recurso tecnológico tiene un objetivo de aprendizaje claro y explícito</p>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                          <h4 className="font-bold text-xl mb-3">♿ Accesibilidad</h4>
+                          <p>Diseño universal que permite a todos los estudiantes acceder al aprendizaje</p>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                          <h4 className="font-bold text-xl mb-3">🔄 Adaptabilidad</h4>
+                          <p>Recursos modificables según contexto, nivel y necesidades específicas</p>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                          <h4 className="font-bold text-xl mb-3">📊 Evaluación Integrada</h4>
+                          <p>Incluyen criterios y herramientas para evaluar aprendizajes genuinos</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <button
+                        onClick={() => setSeccionActiva('recursos')}
+                        className="bg-gradient-to-r from-primary to-secondary text-white px-10 py-5 rounded-xl font-bold text-xl hover:shadow-2xl transition-all hover:scale-105"
+                      >
+                        Explorar Recursos Basados en estos Fundamentos →
+                      </button>
                     </div>
                   </div>
                 )}
@@ -257,10 +500,10 @@
                 {seccionActiva === 'recursos' && (
                   <div>
                     {/* Buscador y filtros */}
-                    <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
                       <div className="flex gap-4 mb-4">
                         <div className="flex-1 relative">
-                          <svg className="absolute left-3 top-3 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="absolute left-4 top-4 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                           </svg>
                           <input
@@ -268,14 +511,14 @@
                             placeholder="Buscar recursos, herramientas, actividades..."
                             value={busqueda}
                             onChange={(e) => setBusqueda(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            className="w-full pl-12 pr-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent text-lg"
                           />
                         </div>
                         <button
                           onClick={() => setMostrarFiltros(!mostrarFiltros)}
-                          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                          className="flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl hover:shadow-lg transition-all font-semibold"
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                           </svg>
                           Filtros
@@ -283,13 +526,13 @@
                       </div>
 
                       {mostrarFiltros && (
-                        <div className="grid md:grid-cols-4 gap-4 pt-4 border-t">
+                        <div className="grid md:grid-cols-4 gap-4 pt-6 border-t-2 border-gray-200">
                           <div>
-                            <label className="block text-sm font-medium mb-2">Área</label>
+                            <label className="block text-sm font-bold mb-2 text-dark">Área</label>
                             <select
                               value={filtros.area}
                               onChange={(e) => setFiltros({...filtros, area: e.target.value})}
-                              className="w-full p-2 border rounded-lg"
+                              className="w-full p-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary"
                             >
                               <option value="">Todas</option>
                               <option value="Matemática">Matemática</option>
@@ -300,11 +543,11 @@
                             </select>
                           </div>
                           <div>
-                            <label className="block text-sm font-medium mb-2">Nivel</label>
+                            <label className="block text-sm font-bold mb-2 text-dark">Nivel</label>
                             <select
                               value={filtros.nivel}
                               onChange={(e) => setFiltros({...filtros, nivel: e.target.value})}
-                              className="w-full p-2 border rounded-lg"
+                              className="w-full p-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary"
                             >
                               <option value="">Todos</option>
                               <option value="Primaria">Primaria</option>
@@ -312,11 +555,11 @@
                             </select>
                           </div>
                           <div>
-                            <label className="block text-sm font-medium mb-2">Dificultad</label>
+                            <label className="block text-sm font-bold mb-2 text-dark">Dificultad</label>
                             <select
                               value={filtros.dificultad}
                               onChange={(e) => setFiltros({...filtros, dificultad: e.target.value})}
-                              className="w-full p-2 border rounded-lg"
+                              className="w-full p-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary"
                             >
                               <option value="">Todas</option>
                               <option value="Principiante">Principiante</option>
@@ -325,11 +568,11 @@
                             </select>
                           </div>
                           <div>
-                            <label className="block text-sm font-medium mb-2">Tipo</label>
+                            <label className="block text-sm font-bold mb-2 text-dark">Tipo</label>
                             <select
                               value={filtros.tipo}
                               onChange={(e) => setFiltros({...filtros, tipo: e.target.value})}
-                              className="w-full p-2 border rounded-lg"
+                              className="w-full p-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary"
                             >
                               <option value="">Todos</option>
                               <option value="Tutorial">Tutorial</option>
@@ -340,12 +583,12 @@
                           <div className="md:col-span-4">
                             <button
                               onClick={limpiarFiltros}
-                              className="flex items-center gap-2 text-sm text-indigo-600 hover:text-indigo-800"
+                              className="flex items-center gap-2 text-sm text-secondary hover:text-primary font-semibold"
                             >
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                               </svg>
-                              Limpiar filtros
+                              Limpiar todos los filtros
                             </button>
                           </div>
                         </div>
@@ -353,27 +596,27 @@
                     </div>
 
                     {/* Lista de recursos */}
-                    <div className="bg-white rounded-xl shadow-lg p-6">
-                      <h3 className="text-2xl font-bold mb-6">
-                        {recursosFiltrados.length} recursos encontrados
+                    <div className="bg-white rounded-2xl shadow-xl p-8">
+                      <h3 className="text-3xl font-bold mb-8 text-dark">
+                        {recursosFiltrados.length} {recursosFiltrados.length === 1 ? 'recurso encontrado' : 'recursos encontrados'}
                       </h3>
-                      <div className="space-y-4">
+                      <div className="space-y-6">
                         {recursosFiltrados.map(recurso => (
-                          <div key={recurso.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-                            <div className="flex justify-between items-start mb-3">
-                              <h4 className="text-xl font-semibold">{recurso.titulo}</h4>
-                              <span className={`text-sm px-3 py-1 rounded-full ${getDificultadColor(recurso.dificultad)}`}>
+                          <div key={recurso.id} className="border-2 border-gray-200 rounded-2xl p-8 hover:shadow-xl hover:border-secondary transition-all">
+                            <div className="flex justify-between items-start mb-4">
+                              <h4 className="text-2xl font-bold text-dark flex-1">{recurso.titulo}</h4>
+                              <span className={`text-sm font-bold px-4 py-2 rounded-full ${getDificultadColor(recurso.dificultad)}`}>
                                 {recurso.dificultad}
                               </span>
                             </div>
-                            <p className="text-gray-700 mb-3">{recurso.descripcion}</p>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">{recurso.area}</span>
-                              <span className="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full">{recurso.nivel}</span>
-                              <span className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">{recurso.tipo}</span>
+                            <p className="text-gray-700 text-lg mb-4 leading-relaxed">{recurso.descripcion}</p>
+                            <div className="flex flex-wrap gap-3 mb-4">
+                              <span className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border-2 border-blue-200 font-semibold">{recurso.area}</span>
+                              <span className="bg-purple-50 text-purple-700 px-4 py-2 rounded-full border-2 border-purple-200 font-semibold">{recurso.nivel}</span>
+                              <span className="bg-gray-50 text-gray-700 px-4 py-2 rounded-full border-2 border-gray-200 font-semibold">{recurso.tipo}</span>
                             </div>
-                            <div className="bg-indigo-50 p-3 rounded-lg">
-                              <p className="text-sm text-indigo-900"><strong>NAP:</strong> {recurso.nap}</p>
+                            <div className="bg-gradient-to-r from-secondary/10 to-primary/10 p-5 rounded-xl border-l-4 border-secondary">
+                              <p className="text-base text-dark"><strong className="text-secondary">NAP:</strong> {recurso.nap}</p>
                             </div>
                           </div>
                         ))}
@@ -385,55 +628,76 @@
                 {/* Sección Contacto */}
                 {seccionActiva === 'contacto' && (
                   <div className="grid md:grid-cols-2 gap-8">
-                    <div className="bg-white rounded-xl shadow-lg p-8">
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                          <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="bg-white rounded-2xl shadow-xl p-10">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-lg">
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
                         </div>
-                        <h3 className="text-2xl font-bold">Capacitaciones y Cursos</h3>
+                        <h3 className="text-3xl font-bold text-dark">Capacitaciones</h3>
                       </div>
-                      <p className="text-gray-700 mb-6">
+                      <p className="text-gray-700 mb-8 text-lg leading-relaxed">
                         ¿Interesado en capacitaciones personalizadas para tu institución? Ofrezco cursos y talleres sobre integración de herramientas digitales en el aula, diseñados específicamente para las necesidades de tu equipo docente.
                       </p>
-                      <div className="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h4 className="font-semibold text-indigo-900 mb-2">Modalidades disponibles:</h4>
-                        <ul className="text-sm text-indigo-800 space-y-1">
-                          <li>• Talleres presenciales y virtuales</li>
-                          <li>• Capacitaciones institucionales</li>
-                          <li>• Acompañamiento en proyectos STEAM</li>
-                          <li>• Formación en ABP y gamificación</li>
+                      <div className="bg-gradient-to-br from-secondary/20 to-primary/20 p-6 rounded-2xl mb-8 border-2 border-secondary/30">
+                        <h4 className="font-bold text-xl mb-4 text-dark">Modalidades disponibles:</h4>
+                        <ul className="space-y-2 text-gray-700">
+                          <li className="flex items-center gap-3">
+                            <span className="text-secondary text-xl">✓</span>
+                            <span>Talleres presenciales y virtuales</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <span className="text-secondary text-xl">✓</span>
+                            <span>Capacitaciones institucionales</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <span className="text-secondary text-xl">✓</span>
+                            <span>Acompañamiento en proyectos STEAM</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <span className="text-secondary text-xl">✓</span>
+                            <span>Formación en ABP y gamificación</span>
+                          </li>
                         </ul>
                       </div>
-                      <div className="space-y-4">
+                      <div className="space-y-5">
                         <div>
-                          <label className="block text-sm font-medium mb-2">Nombre completo</label>
+                          <label className="block text-sm font-bold mb-2 text-dark">Nombre completo</label>
                           <input
                             type="text"
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            value={formContacto.nombre}
+                            onChange={(e) => setFormContacto({...formContacto, nombre: e.target.value})}
+                            className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent"
                             placeholder="Tu nombre"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Email</label>
+                          <label className="block text-sm font-bold mb-2 text-dark">Email</label>
                           <input
                             type="email"
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            value={formContacto.email}
+                            onChange={(e) => setFormContacto({...formContacto, email: e.target.value})}
+                            className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent"
                             placeholder="tu@email.com"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Institución</label>
+                          <label className="block text-sm font-bold mb-2 text-dark">Institución</label>
                           <input
                             type="text"
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            value={formContacto.institucion}
+                            onChange={(e) => setFormContacto({...formContacto, institucion: e.target.value})}
+                            className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent"
                             placeholder="Nombre de tu escuela"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Nivel educativo de interés</label>
-                          <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                          <label className="block text-sm font-bold mb-2 text-dark">Nivel educativo</label>
+                          <select 
+                            value={formContacto.nivel}
+                            onChange={(e) => setFormContacto({...formContacto, nivel: e.target.value})}
+                            className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent">
                             <option value="">Seleccionar</option>
                             <option value="primaria">Primaria</option>
                             <option value="secundaria">Secundaria</option>
@@ -441,59 +705,61 @@
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Mensaje</label>
+                          <label className="block text-sm font-bold mb-2 text-dark">Mensaje</label>
                           <textarea
                             rows="4"
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            value={formContacto.mensaje}
+                            onChange={(e) => setFormContacto({...formContacto, mensaje: e.target.value})}
+                            className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent"
                             placeholder="Contame sobre tus necesidades de capacitación..."
                           ></textarea>
                         </div>
                         <button
-                          onClick={() => alert('Gracias por tu interés. Por favor, enviá tu consulta a: tu@email.com')}
-                          className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
+                          onClick={enviarConsulta}
+                          className="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all hover:scale-105"
                         >
                           Enviar consulta
                         </button>
                       </div>
                     </div>
                     
-                    <div className="space-y-6">
-                      <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl shadow-lg p-8 text-white">
-                        <h3 className="text-2xl font-bold mb-4">Sobre la plataforma</h3>
-                        <p className="mb-4">
+                    <div className="space-y-8">
+                      <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-xl p-10 text-white">
+                        <h3 className="text-3xl font-bold mb-6">Sobre DocenTech</h3>
+                        <p className="mb-6 text-lg leading-relaxed">
                           DocenTech nace con el objetivo de facilitar la integración de tecnología educativa en las aulas argentinas, respetando los NAP y adaptándose a las realidades de cada contexto.
                         </p>
-                        <p>
+                        <p className="text-lg leading-relaxed">
                           Como facilitadora de Conecta por Argentina y miembro del Equipo de Educación Digital de Neuquén, comparto recursos probados en aulas reales.
                         </p>
                       </div>
                       
-                      <div className="bg-white rounded-xl shadow-lg p-8">
-                        <h4 className="text-xl font-bold mb-4">¿Por qué elegir estas capacitaciones?</h4>
-                        <ul className="space-y-3">
-                          <li className="flex items-start gap-3">
-                            <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-indigo-600 font-bold text-sm">✓</span>
+                      <div className="bg-white rounded-2xl shadow-xl p-10">
+                        <h4 className="text-2xl font-bold mb-6 text-dark">¿Por qué estas capacitaciones?</h4>
+                        <ul className="space-y-5">
+                          <li className="flex items-start gap-4">
+                            <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-secondary font-bold text-xl">✓</span>
                             </div>
-                            <span className="text-gray-700">Experiencia real en aulas de Neuquén y metodologías probadas</span>
+                            <span className="text-gray-700 text-base leading-relaxed">Experiencia real en aulas de Neuquén y metodologías probadas</span>
                           </li>
-                          <li className="flex items-start gap-3">
-                            <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-indigo-600 font-bold text-sm">✓</span>
+                          <li className="flex items-start gap-4">
+                            <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-secondary font-bold text-xl">✓</span>
                             </div>
-                            <span className="text-gray-700">Contenidos alineados con NAP y Nueva Escuela Secundaria Neuquina</span>
+                            <span className="text-gray-700 text-base leading-relaxed">Contenidos alineados con NAP y Nueva Escuela Secundaria Neuquina</span>
                           </li>
-                          <li className="flex items-start gap-3">
-                            <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-indigo-600 font-bold text-sm">✓</span>
+                          <li className="flex items-start gap-4">
+                            <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-secondary font-bold text-xl">✓</span>
                             </div>
-                            <span className="text-gray-700">Enfoque práctico con ABP, STEAM y gamificación</span>
+                            <span className="text-gray-700 text-base leading-relaxed">Enfoque práctico con ABP, STEAM y gamificación</span>
                           </li>
-                          <li className="flex items-start gap-3">
-                            <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-indigo-600 font-bold text-sm">✓</span>
+                          <li className="flex items-start gap-4">
+                            <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-secondary font-bold text-xl">✓</span>
                             </div>
-                            <span className="text-gray-700">Recursos adaptables a diferentes contextos y recursos disponibles</span>
+                            <span className="text-gray-700 text-base leading-relaxed">Recursos adaptables a diferentes contextos y recursos disponibles</span>
                           </li>
                         </ul>
                       </div>
@@ -502,11 +768,12 @@
                 )}
               </main>
 
-              {/* Footer */}
-              <footer className="bg-gray-800 text-white mt-16 py-8">
+              {/* Footer mejorado */}
+              <footer className="bg-dark text-white mt-20 py-12">
                 <div className="max-w-7xl mx-auto px-4 text-center">
-                  <p className="text-sm">© 2025 DocenTech - Recursos educativos digitales para docentes</p>
-                  <p className="text-xs text-gray-400 mt-2">Plataforma desarrollada con enfoque en NAP argentinos</p>
+                  <h2 className="text-2xl font-bold mb-3">DocenTech</h2>
+                  <p className="text-lg mb-2">Recursos educativos digitales con propósito pedagógico</p>
+                  <p className="text-sm text-gray-400">© 2025 - Alineado con NAP argentinos</p>
                 </div>
               </footer>
             </div>
