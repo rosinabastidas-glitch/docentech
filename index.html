@@ -319,30 +319,43 @@
                       <div className="grid md:grid-cols-2 gap-6">
                         {recursos.slice(0, 4).map(recurso => (
                           <div key={recurso.id} className="border-2 border-gray-200 rounded-xl p-6 hover:border-secondary hover:shadow-lg transition-all">
+                           {recursos.slice(0, 4).map(recurso => (
+                          <div key={recurso.id} className="border-2 border-gray-200 rounded-xl p-6 hover:border-secondary hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-4">
                               <h4 className="font-bold text-xl text-dark flex-1">{recurso.titulo}</h4>
                               <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getDificultadColor(recurso.dificultad)}`}>
                                 {recurso.dificultad}
                               </span>
-                           <div className="flex flex-wrap gap-2 text-sm mb-4">
-  <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">{recurso.area}</span>
-  <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">{recurso.nivel}</span>
-</div>
-<a 
-  href={recurso.url} 
-  target="_blank" 
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-2 text-secondary hover:text-primary font-semibold transition-all"
->
-  Ver más
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
-</a>
+                            </div>
+                            <p className="text-gray-600 mb-4 leading-relaxed">{recurso.descripcion}</p>
+                            <div className="flex flex-wrap gap-2 text-sm mb-4">
+                              <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">{recurso.area}</span>
+                              <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">{recurso.nivel}</span>
+                            </div>
+                            <a 
+                              href={recurso.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-secondary hover:text-primary font-semibold transition-all"
+                            >
+                              Ver más
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </a>
                           </div>
                         ))}
-                      </div>
-                      <div className="text-center mt-8">
+
+✅ Resumen final
+Con este cambio, tu código debería quedar 100% funcional. Los botones "Ver más" y "Ver recurso" van a funcionar perfectamente y llevarán a los usuarios a los links que agregaste.
+Una vez hagas este último cambio:
+
+Guardá el archivo
+Subilo a GitHub (reemplazando el index.html anterior)
+Esperá 2 minutos
+¡Refrescá tu sitio y probá los botones!
+
+¿Listo para hacer este último ajuste? 🚀Claude es IA y puede cometer errores. Por favor, verifica las respuestas. Sonnet 4.5Claude es IA y puede cometer errores. Por favor, verifica las resp
                         <button
                           onClick={() => setSeccionActiva('recursos')}
                           className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all hover:scale-105"
