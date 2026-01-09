@@ -72,7 +72,7 @@
               nap: "Producción de textos multimodales",
               descripcion: "Guía paso a paso para crear infografías educativas utilizando Canva, integrando texto, imágenes y diseño visual para comunicar ideas de manera efectiva.",
               url: "https://www.canva.com/es_ar/aprende/infografias/"
-        },
+            },
             {
               id: 2,
               titulo: "Programación en Scratch para Matemática",
@@ -83,7 +83,7 @@
               nap: "Resolución de problemas y pensamiento computacional",
               descripcion: "Actividades de geometría y cálculo con Scratch, desarrollando el pensamiento lógico-matemático a través de la programación visual.",
               url: "https://scratch.mit.edu/"
-        },
+            },
             {
               id: 3,
               titulo: "Laboratorio Virtual de Ciencias",
@@ -93,7 +93,7 @@
               tipo: "Guía",
               nap: "Experimentación científica",
               descripcion: "Uso de simuladores PhET para experimentos de física, permitiendo la exploración de fenómenos científicos de manera segura y accesible.",
-              url: "https://phet.colorado.edu/es/" 
+              url: "https://phet.colorado.edu/es/"
             },
             {
               id: 4,
@@ -249,7 +249,7 @@
                         <p className="text-lg leading-relaxed mb-6">
                           DocenTech nace de la necesidad de cerrar la brecha entre las herramientas digitales disponibles y su 
                           aplicación pedagógica efectiva en contextos educativos reales. Nuestro propósito es democratizar el 
-                          acceso a recursos tecnol+ogicos de calidad, alineadas con los <strong>Núcleos de Aprendizaje Prioritario (NAP)</strong> 
+                          acceso a recursos tecnológicos de calidad, alineadas con los <strong>Núcleos de Aprendizaje Prioritario (NAP)</strong> 
                           del sistema educativo argentino.
                         </p>
                         <div className="grid md:grid-cols-3 gap-6">
@@ -319,8 +319,6 @@
                       <div className="grid md:grid-cols-2 gap-6">
                         {recursos.slice(0, 4).map(recurso => (
                           <div key={recurso.id} className="border-2 border-gray-200 rounded-xl p-6 hover:border-secondary hover:shadow-lg transition-all">
-                           {recursos.slice(0, 4).map(recurso => (
-                          <div key={recurso.id} className="border-2 border-gray-200 rounded-xl p-6 hover:border-secondary hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-4">
                               <h4 className="font-bold text-xl text-dark flex-1">{recurso.titulo}</h4>
                               <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getDificultadColor(recurso.dificultad)}`}>
@@ -345,17 +343,8 @@
                             </a>
                           </div>
                         ))}
-
-✅ Resumen final
-Con este cambio, tu código debería quedar 100% funcional. Los botones "Ver más" y "Ver recurso" van a funcionar perfectamente y llevarán a los usuarios a los links que agregaste.
-Una vez hagas este último cambio:
-
-Guardá el archivo
-Subilo a GitHub (reemplazando el index.html anterior)
-Esperá 2 minutos
-¡Refrescá tu sitio y probá los botones!
-
-¿Listo para hacer este último ajuste? 🚀Claude es IA y puede cometer errores. Por favor, verifica las respuestas. Sonnet 4.5Claude es IA y puede cometer errores. Por favor, verifica las resp
+                      </div>
+                      <div className="text-center mt-8">
                         <button
                           onClick={() => setSeccionActiva('recursos')}
                           className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all hover:scale-105"
@@ -643,20 +632,20 @@ Esperá 2 minutos
                               <span className="bg-purple-50 text-purple-700 px-4 py-2 rounded-full border-2 border-purple-200 font-semibold">{recurso.nivel}</span>
                               <span className="bg-gray-50 text-gray-700 px-4 py-2 rounded-full border-2 border-gray-200 font-semibold">{recurso.tipo}</span>
                             </div>
-                            <div className="bg-gradient-to-r from-secondary/10 to-primary/10 p-5 rounded-xl border-l-4 border-secondary">
+                            <div className="bg-gradient-to-r from-secondary/10 to-primary/10 p-5 rounded-xl border-l-4 border-secondary mb-4">
                               <p className="text-base text-dark"><strong className="text-secondary">NAP:</strong> {recurso.nap}</p>
                             </div>
-                              <a 
-  href={recurso.url} 
-  target="_blank" 
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105 mt-4"
->
-  Ver recurso
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-  </svg>
-</a>
+                            <a 
+                              href={recurso.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105"
+                            >
+                              Ver recurso
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                              </svg>
+                            </a>
                           </div>
                         ))}
                       </div>
@@ -780,13 +769,13 @@ Esperá 2 minutos
                             <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
                               <span className="text-secondary font-bold text-xl">✓</span>
                             </div>
-                            <span className="text-gray-700 text-base leading-relaxed">Experiencia real en aulas distintas regiones y metodologías probadas</span>
+                            <span className="text-gray-700 text-base leading-relaxed">Experiencia real en aulas de distintas regiones y metodologías probadas</span>
                           </li>
                           <li className="flex items-start gap-4">
                             <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
                               <span className="text-secondary font-bold text-xl">✓</span>
                             </div>
-                            <span className="text-gray-700 text-base leading-relaxed">Contenidos alineados con los NAP y diseños curriculares argentinos </span>
+                            <span className="text-gray-700 text-base leading-relaxed">Contenidos alineados con los NAP y diseños curriculares argentinos</span>
                           </li>
                           <li className="flex items-start gap-4">
                             <div className="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
