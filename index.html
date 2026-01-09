@@ -324,12 +324,21 @@
                               <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getDificultadColor(recurso.dificultad)}`}>
                                 {recurso.dificultad}
                               </span>
-                            </div>
-                            <p className="text-gray-600 mb-4 leading-relaxed">{recurso.descripcion}</p>
-                            <div className="flex flex-wrap gap-2 text-sm">
-                              <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">{recurso.area}</span>
-                              <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">{recurso.nivel}</span>
-                            </div>
+                           <div className="flex flex-wrap gap-2 text-sm mb-4">
+  <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">{recurso.area}</span>
+  <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">{recurso.nivel}</span>
+</div>
+<a 
+  href={recurso.url} 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-2 text-secondary hover:text-primary font-semibold transition-all"
+>
+  Ver más
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+</a>
                           </div>
                         ))}
                       </div>
@@ -624,6 +633,17 @@
                             <div className="bg-gradient-to-r from-secondary/10 to-primary/10 p-5 rounded-xl border-l-4 border-secondary">
                               <p className="text-base text-dark"><strong className="text-secondary">NAP:</strong> {recurso.nap}</p>
                             </div>
+                              <a 
+  href={recurso.url} 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105 mt-4"
+>
+  Ver recurso
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+  </svg>
+</a>
                           </div>
                         ))}
                       </div>
